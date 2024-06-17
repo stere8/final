@@ -1,0 +1,9 @@
+<!-- orders/templates/orders/order_detail.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Order {{ order.id }}</h2>
+  <p>Status: {{ order.status }}</p>
+  <p>Listing: {{ order.listing.title }}</p>
+  <p>Date Ordered: {{ order.date_ordered }}</p>
+{% endblock %}

@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block title %}User Accounts{% endblock %}
+
+{% block content %}
+    <div class="container mt-4">
+        <h1 class="display-4 mb-4">User Accounts</h1>
+
+        <form method="get" action="{% url 'account_search' %}" class="mb-4">
+            <div class="row">
+                <div class="col-md-8">
+                    <label for="q" class="form-label">Search by Username, Email, First Name, or Last Name:</label>
+                    <input type="text" name="q" id="q" class="form-control" value="{{ search_term }}" required>
+                </div>
+                <div class="col-md-4">
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </div>
+            </div>
+        </form>
+
+        {% if is_from_search %}
+            <h2 class="h3 mb-4">Search results for '{{ search_term }}'</h2>
+        {% endif %}
+
+        <ul class="list-group">
+            {% for account in accounts %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <h2><a href="{% url 'account_detail' account.pk %}">{{ account.username }}</a></h2>
+                    <span class="badge bg-primary rounded-pill"><h3>{{ account.email }}</h3></span>
+                </li>
+            {% endfor %}
+        </ul>
+        <nav aria-label="Page navigation">
+            <ul class="pagination mt-4">
+                {% if accounts.has_previous %}
+                    <li class="page-item"><a class="page-link" href="?page=1">First</a></li>
+                    <li class="page-item"><a class="page-link" href="?page={{ accounts.previous_page_number }}">&laquo;
+                        Prev</a></li>
+                {% endif %}
+                <li class="page-item disabled"><a class="page-link disabled" href="#">Page {{ accounts.number }}
+                    of {{ accounts.paginator.num_pages }}</a></li>
+                {% if accounts.has_next %}
+                    <li class="page-item"><a class="page-link" href="?page={{ accounts.next_page_number }}">Next
+                        &raquo;</a></li>
+                    <li class="page-item"><a class="page-link" href="?page={{ accounts.paginator.num_pages }}">Last</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-OgwmRWzBw4mxVjIxHS2bLZhqVqZITfVidjXLfyGBw9NsyLzN5z8nPz+ArDk2dB0U"
+            crossorigin="anonymous"></script>
+{% endblock %}

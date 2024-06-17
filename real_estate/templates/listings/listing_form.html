@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}Listing List{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="mt-5">{% if pk %}Edit Listing{% else %}New Listing{% endif %}</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">{% if pk %}Update{% else %}Create{% endif %}</button>
+    </form>
+    {%if pk%}
+    </br>
+    <a href="{% url 'listing_delete' pk %}" class="btn btn-danger ">Delete</a>
+    {% endif %}
+</div>
+{% endblock %}

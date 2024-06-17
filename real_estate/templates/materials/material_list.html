@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Materials</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-5">Materials</h1>
+        <a href="{% url 'material_create' %}" class="btn btn-primary mb-3">Add New Material</a>
+        <ul class="list-group">
+            {% for material in materials %}
+                <li class="list-group-item">
+                    <a href="{% url 'material_detail' material.pk %}">{{ material.name }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>
