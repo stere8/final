@@ -3,52 +3,113 @@
 {% block title %}Listing List{% endblock %}
 
 {% block content %}
-    <div class="container mt-4">
-        <h1 class="display-4 mb-4 text-center te listing-title">Listings</h1>
-        <form method="get" action="{% url 'listing_search' %}" class="mb-4 d-flex justify-content-between">
-            <div class="col-md-8">
-                <label for="q" class="form-label">Search by Title or Description:</label>
-                <input type="text" name="q" id="q" class="form-control" required>
+    <section id="home" class="welcome-hero">
+        <div class="container">
+            <div class="welcome-hero-txt">
+                <h2>best place to find and explore <br> that all you need </h2>
             </div>
-            <div class="col-md-4">
-                <button type="submit" class="btn btn-primary">Search</button>
-            </div>
-        </form>
-        {% if user.is_authenticated and user.is_superuser %}
-            <a href="{% url 'listing_create' %}" class="btn btn-outline-success float-end">Add Listings</a>
-        {% endif %}
-        {% if is_from_search %}
-            <h2 class="h3 mb-4 text-center">Search results for '{{ search_term }}'</h2>
-        {% endif %}
-        <div class="row">  {% for listing in listings %}
-            <div class="col-md-4 mb-3">
-                <div class="card">
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <h2 class="card-title"><a href="{% url 'listing_detail' listing.pk %}">{{ listing.title }}</a>
-                        </h2>
-                        <span class="badge rounded-pill listing-badge">
-                            <h6 class="listing-price">${{ listing.price }}</h6>
-                        </span>
-                    </li>
+            <form method="get" action="{% url 'listing_search' %}" class="mb-4 d-flex justify-content-between">
+                <div>
+                    <label for="q" class="form-label">Search by Title or Description:</label>
+                    <input type="text" name="q" id="q" class="form-control" required>
                 </div>
-            </div>
-        {% endfor %}
+                <div>
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </div>
+            </form>
         </div>
-        <nav aria-label="Page navigation">
-            <ul class="pagination mt-4 justify-content-center">  {% if listings.has_previous %}
-                <li class="page-item"><a class="page-link" href="?page=1">First</a></li>
-                <li class="page-item"><a class="page-link" href="?page={{ listings.previous_page_number }}">&laquo;
-                    Prev</a></li>
+        <div class="container mt-4">
+            <h1 class="display-4 mb-4 text-center te listing-title">Listings</h1>
+
+            {% if user.is_authenticated and user.is_superuser %}
+                <a href="{% url 'listing_create' %}" class="btn btn-outline-success float-end">Add Listings</a>
             {% endif %}
-                <li class="page-item disabled"><a class="page-link disabled" href="#">Page {{ listings.number }}
-                    of {{ listings.paginator.num_pages }}</a></li>
-                {% if listings.has_next %}
-                    <li class="page-item"><a class="page-link" href="?page={{ listings.next_page_number }}">Next
-                        &raquo;</a></li>
-                    <li class="page-item"><a class="page-link" href="?page={{ listings.paginator.num_pages }}">Last</a>
-                    </li>
+            {% if is_from_search %}
+                <h2 class="h3 mb-4 text-center">Search results for '{{ search_term }}'</h2>
+            {% endif %}
+            <div class="row">  {% for listing in listings %}
+                <div class=" col-md-4 col-sm-6">
+                    <div class="single-explore-item">
+                        <div class="single-explore-img">
+                            <img src="{{ listing.main_img.url }}" alt="explore image">
+                            <div class="single-explore-img-info">
+                                <button onclick="window.location.href='#'">best rated</button>
+                                <div class="single-explore-image-icon-box">
+                                    <ul>
+                                        <li>
+                                            <div class="single-explore-image-icon">
+                                                <i class="fa fa-arrows-alt"></i>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="single-explore-image-icon">
+                                                <i class="fa fa-bookmark-o"></i>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="single-explore-txt bg-theme-1">
+                            <h2><a href="#">{{ listing.title }}</a></h2>
+                            <p class="explore-rating-price">
+
+                            <span class="explore-price-box">
+											form
+											<span class="explore-price">{{ listing.price }}</span>
+										</span>
+                            </p>
+                            <div class="explore-person">
+                                <div class="row">
+                                    <div class="col-sm-2">
+                                        
+                                    </div>
+                                    <div class="col-sm-10">
+                                        <p>
+                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                                            tempor
+                                            incid ut labore et dolore magna aliqua....
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="explore-open-close-part">
+                                <div class="row">
+                                    <div class="col-sm-5">
+                                        <button class="close-btn" onclick="window.location.href='#'">close now</button>
+                                    </div>
+                                    <div class="col-sm-7">
+                                        <div class="explore-map-icon">
+                                            <a href="#"><i data-feather="map-pin"></i></a>
+                                            <a href="#"><i data-feather="upload"></i></a>
+                                            <a href="#"><i data-feather="heart"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+            </div>
+            <nav aria-label="Page navigation">
+                <ul class="pagination mt-4 justify-content-center">  {% if listings.has_previous %}
+                    <li class="page-item"><a class="page-link" href="?page=1">First</a></li>
+                    <li class="page-item"><a class="page-link" href="?page={{ listings.previous_page_number }}">&laquo;
+                        Prev</a></li>
                 {% endif %}
-            </ul>
-        </nav>
-    </div>
+                    <li class="page-item disabled"><a class="page-link disabled" href="#">Page {{ listings.number }}
+                        of {{ listings.paginator.num_pages }}</a></li>
+                    {% if listings.has_next %}
+                        <li class="page-item"><a class="page-link" href="?page={{ listings.next_page_number }}">Next
+                            &raquo;</a></li>
+                        <li class="page-item"><a class="page-link"
+                                                 href="?page={{ listings.paginator.num_pages }}">Last</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+    </section><!--/.welcome-hero-->
+
 {% endblock %}

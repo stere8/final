@@ -9,6 +9,6 @@ urlpatterns = [
     path('<int:pk>/delete/', views.listing_delete, name='listing_delete'),
     path('search/', views.listing_search, name='listing_search'),
     path('success/', views.success, name='success'),
-    path('/<int:pk>/reserve/', views.reserve_listing, name='reserve_listing'),
+    path('<int:pk>/reserve/', views.reserve_listing, name='reserve_listing')
 
 ]
